@@ -27,6 +27,19 @@ module.exports = (sequelize, Sequelize) => {
       onUpdate: "RESTRICT",
     },
   });
+  const Pemesanan_mobil = sequelize.define("pemesanan_mobil", {
+    pemesanan_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    mobil_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+  });
 
-  return Pemesanan;
+  return {
+    Pemesanan: Pemesanan,
+    Pemesanan_mobil: Pemesanan_mobil,
+  };
 };
