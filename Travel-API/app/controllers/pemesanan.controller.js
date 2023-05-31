@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const Pemesanan = db.pemesanan;
 const Op = db.Sequelize.Op;
-//Create mobil method
+
 exports.create = (req, res) => {
   if (!req.body.tanggal_pemesanan) {
     res.status(400).send({

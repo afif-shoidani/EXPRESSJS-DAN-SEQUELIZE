@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const Pelanggan = db.pelanggan;
 const Op = db.Sequelize.Op;
-//Create mobil method
+
 exports.create = (req, res) => {
   if (!req.body.name) {
     res.status(400).send({
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
     });
     return;
   }
-  //create mobil object
+
   const pelanggan = {
     name: req.body.name,
     alamat: req.body.alamat,
