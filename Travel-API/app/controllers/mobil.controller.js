@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   Mobil.findOne({
     where: {
-      id: req.params.id,
+      mobil_id: req.params.id,
     },
   })
     .then((data) => {
@@ -55,10 +55,10 @@ exports.findOne = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const mobil_id = req.params.id;
 
   Mobil.destroy({
-    where: { id: id },
+    where: { mobil_id: mobil_id },
   })
     .then((num) => {
       if (num == 1) {
@@ -67,13 +67,13 @@ exports.delete = (req, res) => {
         });
       } else {
         res.status(404).send({
-          message: `Cannot delete Mobil with id=${id}. Mobil not found.`,
+          message: `Cannot delete Mobil with mobil_id=${mobil_id}. Mobil not found.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error deleting Mobil with id=" + id,
+        message: "Error deleting Mobil with mobil_id=" + mobil_id,
       });
     });
 };
@@ -104,7 +104,7 @@ exports.update = (req, res) => {
   }
   Mobil.findOne({
     where: {
-      id: req.params.id,
+      mobil_id: req.params.id,
     },
   })
     .then((data) => {
@@ -118,7 +118,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Mobil with id=" + id,
+        message: "Error updating Mobil with mobil_id=" + mobil_id,
       });
     });
 };

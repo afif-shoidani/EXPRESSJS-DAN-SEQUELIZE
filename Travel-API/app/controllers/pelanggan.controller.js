@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   Pelanggan.findOne({
     where: {
-      id: req.params.id,
+      pelanggan_id: req.params.id,
     },
   })
     .then((data) => {
@@ -66,10 +66,10 @@ exports.findOne = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const pelanggan_id = req.params.id;
 
   Pelanggan.destroy({
-    where: { id: id },
+    where: { pelanggan_id: pelanggan_id },
   })
     .then((num) => {
       if (num == 1) {
@@ -78,13 +78,13 @@ exports.delete = (req, res) => {
         });
       } else {
         res.status(404).send({
-          message: `Cannot delete Mobil with id=${id}. Pelanggan not found.`,
+          message: `Cannot delete Mobil with pelanggan_id=${pelanggan_id}. Pelanggan not found.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error deleting Pelanggan with id=" + id,
+        message: "Error deleting Pelanggan with pelanggan_id=" + pelanggan_id,
       });
     });
 };
@@ -109,7 +109,7 @@ exports.update = (req, res) => {
   }
   Pelanggan.findOne({
     where: {
-      id: req.params.id,
+      pelanggan_id: req.params.id,
     },
   })
     .then((data) => {
@@ -122,7 +122,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Pelanggan with id=" + id,
+        message: "Error updating Pelanggan with pelanggan_id=" + pelanggan_id,
       });
     });
 };

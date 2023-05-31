@@ -59,7 +59,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   Pemesanan.findOne({
     where: {
-      id: req.params.id,
+      pemesanan_id: req.params.id,
     },
   })
     .then((data) => {
