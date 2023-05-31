@@ -1,9 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../../../models/index.js");
+const Op = db.Sequelize.Op;
 const User = require("../../../models/user.js");
 const Role = require("../../../models/role.js");
-const Op = db.Sequelize.Op;
+
 const config = require("../../../config/configRoles.js");
 
 module.exports = {

@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.Role, { through: "user_roles", foreignKey: "userId" });
+      User.belongsToMany(models.Role, { through: "userRoles", foreignKey: "userId" });
       User.hasOne(models.Status);
     }
   }
@@ -17,8 +17,9 @@ module.exports = (sequelize, Sequelize) => {
     {
       // id: Sequelize.STRING,
       id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       name: Sequelize.STRING,
       email: Sequelize.STRING,
