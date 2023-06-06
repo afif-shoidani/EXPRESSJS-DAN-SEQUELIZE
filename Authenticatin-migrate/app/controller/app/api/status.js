@@ -1,4 +1,4 @@
-const Status = require("../../../models/status.js");
+const Status = require("../../../models").Status;
 
 module.exports = {
   getById(req, res) {

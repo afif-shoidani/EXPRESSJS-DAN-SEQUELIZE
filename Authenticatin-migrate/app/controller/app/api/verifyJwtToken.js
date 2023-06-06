@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../../../config/configRoles.js");
-const User = require("../../../models/user.js");
+const User = require("../../../models").User;
 
 module.exports = {
   verifyToken(req, res, next) {

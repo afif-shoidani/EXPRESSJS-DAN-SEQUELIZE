@@ -1,17 +1,15 @@
 require("dotenv").config();
+const responseHelper = require("express-response-helper").helper();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const db = require("./app/models/index");
 const logger = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
-let corsOptions = {
-  origin: "http://localhost:5050",
-};
-app.use(cors(corsOptions));
-
-app.use(logger("dev"));
+app.use(responseHelper);
+// app.use(logger("dev"));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -35,15 +33,17 @@ const baseUrl = process.env.URL + port;
 //   }
 //   next();
 // });
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, x-access-token");
-  if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.sendStatus(200);
-  }
-  next();
-});
+// CORS config
+var corsOptions = {
+  origin: "http://localhost:5050",
+};
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./app/router/router.js")(app);
 

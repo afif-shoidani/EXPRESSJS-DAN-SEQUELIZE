@@ -1,16 +1,14 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../../../models/index.js");
+const User = require("../../../models").User;
+const Role = require("../../../models").Role;
 const Op = db.Sequelize.Op;
-const User = require("../../../models/user.js");
-const Role = require("../../../models/role.js");
-
 const config = require("../../../config/configRoles.js");
 
 module.exports = {
   signup(req, res) {
     return User.create({
-      id: req.body.id,
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
@@ -27,7 +25,6 @@ module.exports = {
             user.setRoles(roles).then(() => {
               res.status(200).send({
                 auth: true,
-                id: req.body.id,
                 message: "User registered successfully!",
                 errors: null,
               });
@@ -44,24 +41,23 @@ module.exports = {
       .catch((err) => {
         res.status(500).send({
           auth: false,
-          id: req.body.id,
+          nama: req.body.name,
           message: "Error",
           errors: err,
         });
       });
   },
 
-  signin(req, res) {
+  signIn(req, res) {
     return User.findOne({
       where: {
-        id: req.body.id,
+        email: req.body.email,
       },
     })
       .then((user) => {
         if (!user) {
           return res.status(404).send({
             auth: false,
-            id: req.body.id,
             accessToken: null,
             message: "Error",
             errors: "User Not Found.",
@@ -72,37 +68,29 @@ module.exports = {
         if (!passwordIsValid) {
           return res.status(401).send({
             auth: false,
-            id: req.body.id,
             accessToken: null,
             message: "Error",
             errors: "Invalid Password!",
           });
         }
 
-        var token =
-          "Bearer " +
-          jwt.sign(
-            {
-              id: user.id,
-            },
-            config.secret,
-            {
-              expiresIn: 86400, //24h expired
-            }
-          );
+        console.log(">> config.secret", config.secret);
+        console.log(">> user.id", user.id);
+        const jwtToken = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 });
+        var token = `Bearer ${jwtToken}`;
+        console.log(">> token is ", token);
 
         res.status(200).send({
           auth: true,
-          id: req.body.id,
           accessToken: token,
-          message: "Error",
+          message: "success",
           errors: null,
         });
       })
       .catch((err) => {
+        console.log(">> ERR", err);
         res.status(500).send({
           auth: false,
-          id: req.body.id,
           accessToken: null,
           message: "Error",
           errors: err,
