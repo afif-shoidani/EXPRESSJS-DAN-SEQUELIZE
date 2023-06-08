@@ -10,12 +10,10 @@ module.exports = (sequelize, Sequelize) => {
     static associate(models) {
       // define association here
       User.belongsToMany(models.Role, { through: "userRoles", foreignKey: "userId" });
-      User.hasOne(models.Status);
     }
   }
   User.init(
     {
-      // id: Sequelize.STRING,
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
