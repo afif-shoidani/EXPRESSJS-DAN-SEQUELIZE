@@ -28,20 +28,3 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {},
 };
-
-// function create_roles() {
-//   db.role.create({
-//     id: 1,
-//     name: "USER",
-//   });
-
-//   db.role.create({
-//     id: 2,
-//     name: "ADMIN",
-//   });
-
-//   db.role.create({
-//     id: 3,
-//     name: "PM",
-//   });
-// }

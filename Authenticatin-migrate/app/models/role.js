@@ -17,8 +17,6 @@ module.exports = (sequelize, Sequelize) => {
   }
   Role.init(
     {
-      // id: Sequelize.INTEGER,
-      // name: Sequelize.STRING,
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
